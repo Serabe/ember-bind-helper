@@ -1,27 +1,30 @@
-# Ember-bind-helper
+# Ember Bind Helper
 
-This README outlines the details of collaborating on this Ember addon.
+This addon provides a `bind` helper to bind a function to a context.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-bind-helper`
-* `npm install`
-* `bower install`
+`ember install ember-bind-helper`
 
-## Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+## Using `bind`
 
-## Running Tests
+Let's say we want to call a method of an object when we click a function. We
+might think of doing the following:
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+```hbs
+<button onclick={{action myObject.myMethod}}>
+  My Button
+</button>
+```
 
-## Building
+Sadly, this might not work as expected, given that the context would be the
+controller
+([twiddle](https://ember-twiddle.com/cdbb3f82da6bd5f6ff02bb2b6783bb82?openFiles=templates.application.hbs%2C)).
+To solve this, you can use the `bind` helper:
 
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+```hbs
+<button onclick={{action (bind myObject.myMethod myObject)}}>
+  My Button
+</button>
+```

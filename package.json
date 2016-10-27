@@ -1,7 +1,7 @@
 {
   "name": "ember-bind-helper",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "Provide a bind helper that binds a function to a context",
   "directories": {
     "doc": "doc",
     "test": "tests"
