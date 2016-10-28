@@ -1,6 +1,6 @@
 {
   "name": "ember-bind-helper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provide a bind helper that binds a function to a context",
   "directories": {
     "doc": "doc",
@@ -11,9 +11,9 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/Serabe/ember-bind-helper",
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 6.0.0"
   },
   "author": "",
   "license": "MIT",
