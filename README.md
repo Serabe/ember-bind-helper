@@ -1,4 +1,5 @@
 # Ember Bind Helper
+[![CircleCI](https://circleci.com/gh/Serabe/ember-bind-helper.svg?style=svg)](https://circleci.com/gh/Serabe/ember-bind-helper)
 
 This addon provides a `bind` helper to bind a function to a context.
 
