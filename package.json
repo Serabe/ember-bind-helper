@@ -13,7 +13,7 @@
   },
   "repository": "https://github.com/Serabe/ember-bind-helper",
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 4.0.0"
   },
   "author": "",
   "license": "MIT",
