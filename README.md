@@ -1,5 +1,8 @@
 # Ember Bind Helper
-[![CircleCI](https://circleci.com/gh/Serabe/ember-bind-helper.svg?style=svg)](https://circleci.com/gh/Serabe/ember-bind-helper)
+[![Build Status](https://travis-ci.org/Serabe/ember-bind-helper.svg?branch=master)](https://travis-ci.org/Serabe/ember-bind-helper)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-bind-helper.svg)](https://emberobserver.com/addons/ember-bind-helper)
+[![Code Climate](https://codeclimate.com/github/Serabe/ember-bind-helper/badges/gpa.svg)](https://codeclimate.com/github/Serabe/ember-bind-helper)
+[![dependencies Status](https://david-dm.org/Serabe/ember-bind-helper/status.svg)](https://david-dm.org/Serabe/ember-bind-helper)
 
 This addon provides a `bind` helper to bind a function to a context.
 
