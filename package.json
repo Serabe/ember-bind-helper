@@ -11,7 +11,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "Serabe/ember-bind-helper",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
