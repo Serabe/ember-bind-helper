@@ -28,7 +28,28 @@ controller
 To solve this, you can use the `bind` helper:
 
 ```hbs
-<button onclick={{action (bind myObject.myMethod myObject)}}>
+<button onclick={{action (bind myObject.myMethod)}}>
   My Button
 </button>
 ```
+
+This automagically sets the context to `myObject`. If the method were `myObject.mySubobject.myMethod` it would
+bind it to `myObject.mySubobject` and so on.
+
+You can explicitly set the target by adding a named argument `target`:
+
+```hbs
+<button onclick={{action (bind myObject.mySubobject.myMethod target=myObject)}}>
+  My Button
+</button>
+```
+
+`bind` also passes any extra parameters to the binding function. Thus, when we click this button:
+
+```hbs
+<button onclick={{action (bind myMethod 1 2 3 "caramba")}}>
+  My Button
+</button>
+```
+
+`myMethod` will receive `1`, `2`, `3` and `"caramba"` as arguments.
