@@ -13,7 +13,7 @@ test('it works', function(assert) {
     this.prop = value;
   }
 
-  let result = bind([fn, context]);
+  let result = bind([fn], { target: context });
   result('after');
   assert.equal(context.prop, 'after');
 });
@@ -21,7 +21,7 @@ test('it works', function(assert) {
 test('it throws error if no argument is passed', function(assert) {
   assert.throws(
     function() {
-      bind([]);
+      bind([], { target: null });
     },
     /one argument/);
 });
@@ -29,7 +29,7 @@ test('it throws error if no argument is passed', function(assert) {
 test('if first argument is not a function, throw an error', function(assert) {
   assert.throws(
     function() {
-      bind(['not a function']);
+      bind(['not a function'], { target: null });
     },
     /function/);
 });
@@ -41,6 +41,5 @@ test('if no second argument, it is bound to null', function(assert) {
     assert.ok(this === null);
   }
 
-  bind([fun])();
+  bind([fun], { target: null })();
 });
-
