@@ -28,7 +28,7 @@ controller
 To solve this, you can use the `bind` helper:
 
 ```hbs
-<button onclick={{action (bind myObject.myMethod)}}>
+<button onclick={{bind myObject.myMethod}}>
   My Button
 </button>
 ```
@@ -38,7 +38,7 @@ bind it to `myObject.mySubobject` and so on. The only exception to this rule is 
 before the method name is `actions`, it gets removed too:
 
 ```hbs
-<button onclick={{action (bind myObject.actions.myMethod)}}>
+<button onclick={{bind myObject.actions.myMethod}}>
   My Button
 </button>
 ```
@@ -49,7 +49,7 @@ ember-bind-helper removes that too leaving only `myObject`.
 You can explicitly set the target by adding a named argument `target`:
 
 ```hbs
-<button onclick={{action (bind myObject.mySubobject.myMethod target=myObject)}}>
+<button onclick={{bind myObject.mySubobject.myMethod target=myObject}}>
   My Button
 </button>
 ```
@@ -57,7 +57,7 @@ You can explicitly set the target by adding a named argument `target`:
 `bind` also passes any extra parameters to the binding function. Thus, when we click this button:
 
 ```hbs
-<button onclick={{action (bind myMethod 1 2 3 "caramba")}}>
+<button onclick={{bind myMethod 1 2 3 "caramba"}}>
   My Button
 </button>
 ```
