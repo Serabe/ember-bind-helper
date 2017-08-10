@@ -1,9 +1,11 @@
 import Ember from 'ember';
 
-export function bind([f, context=null]=[]/*, hash*/) {
+const { run } = Ember;
+
+export function bind([f, ...params], { target }) {
   if (!f || typeof f !== 'function') { throw 'bind needs to receive at least one argument, a function'; }
 
-  return f.bind(context);
+  return run.bind(target, f, ...params);
 }
 
 export default Ember.Helper.helper(bind);
