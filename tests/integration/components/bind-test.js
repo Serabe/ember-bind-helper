@@ -14,11 +14,13 @@ moduleForComponent('helper:bind', 'Integration | Helper | bind', {
       set(testContext, 'arguments', args);
     }
 
+    let submodel = { method: recordCall };
     let actions = { method: recordCall };
-    let model = { method: recordCall, actions };
+    let model = { method: recordCall, submodel, actions };
 
     this.set('model', model);
     this.set('method', recordCall);
+    this.set('actions', actions);
 
     this.callAction = function() {
       run(() => this.$('button').click());
@@ -52,7 +54,7 @@ test('it changes the context of a function, function: method, context: implicit 
 });
 
 test('it changes the context of a function, function: method, context: this', function(assert) {
-  this.render(hbs`<button {{action (bind method target=this) value="target.value"}}>Click</button>`);
+  this.render(hbs`<button {{action (bind method target=this)}}>Click</button>`);
 
   this.callAction();
 
@@ -60,12 +62,12 @@ test('it changes the context of a function, function: method, context: this', fu
   this.assertArguments(assert, []);
 });
 
-test('it changes the context of a function, function: method, context: model.actions', function(assert) {
-  this.render(hbs`<button {{action (bind method target=model.actions)}}>Click</button>`);
+test('it changes the context of a function, function: method, context: model.submodel', function(assert) {
+  this.render(hbs`<button {{action (bind method target=model.submodel)}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, []);
 });
 
@@ -87,44 +89,62 @@ test('it changes the context of a function, function: model.method, context: mod
   this.assertArguments(assert, []);
 });
 
-test('it changes the context of a function, function: model.method, context: model.actions.', function(assert) {
-  this.render(hbs`<button {{action (bind model.method target=model.actions)}}>Click</button>`);
+test('it changes the context of a function, function: model.method, context: model.submodel.', function(assert) {
+  this.render(hbs`<button {{action (bind model.method target=model.submodel)}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, []);
 });
 
-test('it changes the context of a function, function: model.actions.method, context: implicit model.actions.', function(assert) {
-  this.render(hbs`<button {{action (bind model.actions.method)}}>Click</button>`);
+test('it changes the context of a function, function: model.submodel.method, context: implicit model.submodel.', function(assert) {
+  this.render(hbs`<button {{action (bind model.submodel.method)}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, []);
 });
 
-test('it changes the context of a function, function: model.actions.method, context: model.actions.', function(assert) {
-  this.render(hbs`<button {{action (bind model.actions.method target=model.actions)}}>Click</button>`);
+test('it changes the context of a function, function: model.submodel.method, context: model.submodel.', function(assert) {
+  this.render(hbs`<button {{action (bind model.submodel.method target=model.submodel)}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, []);
+});
+
+test('helper explicitly removes `actions` if it is the last part in a PathExpression, function: model.actions.myMethod, context: implicit model', function(assert) {
+  this.render(hbs`<button {{action (bind model.actions.method 1)}}>Click</button>`);
+
+  this.callAction();
+
+  this.assertContext(assert, get(this, 'model'));
+  this.assertArguments(assert, [1]);
+});
+
+test('helper explicitly removes `actions` if it is the last part in a PathExpression, function: actions.myMethod, context: implicit this', function(assert) {
+  this.render(hbs`<button {{action (bind actions.method 1)}}>Click</button>`);
+
+  this.callAction();
+
+  this.assertContext(assert, this);
+  this.assertArguments(assert, [1]);
 });
 
 test('it passes the extra argument to bind', function(assert) {
-  this.render(hbs`<button {{action (bind model.actions.method "adios")}}>Click</button>`);
+  this.render(hbs`<button {{action (bind model.submodel.method "adios")}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, ['adios']);
 });
 
 test('it passes the extra argument to bind and keeps explicit target', function(assert) {
-  this.render(hbs`<button {{action (bind model.actions.method "adios" target=model)}}>Click</button>`);
+  this.render(hbs`<button {{action (bind model.submodel.method "adios" target=model)}}>Click</button>`);
 
   this.callAction();
 
@@ -133,10 +153,10 @@ test('it passes the extra argument to bind and keeps explicit target', function(
 });
 
 test('it passes the extra arguments to bind', function(assert) {
-  this.render(hbs`<button {{action (bind model.actions.method "adios" 1 model)}}>Click</button>`);
+  this.render(hbs`<button {{action (bind model.submodel.method "adios" 1 model)}}>Click</button>`);
 
   this.callAction();
 
-  this.assertContext(assert, get(this, 'model.actions'));
+  this.assertContext(assert, get(this, 'model.submodel'));
   this.assertArguments(assert, ['adios', 1, get(this, 'model')]);
 });

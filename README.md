@@ -34,7 +34,17 @@ To solve this, you can use the `bind` helper:
 ```
 
 This automagically sets the context to `myObject`. If the method were `myObject.mySubobject.myMethod` it would
-bind it to `myObject.mySubobject` and so on.
+bind it to `myObject.mySubobject` and so on. The only exception to this rule is that if the last part of the chain
+before the method name is `actions`, it gets removed too:
+
+```hbs
+<button onclick={{action (bind myObject.actions.myMethod)}}>
+  My Button
+</button>
+```
+
+This sets the context to `myObject`. Normally it would have been `myObject.actions` but, given the last part is `actions`,
+ember-bind-helper removes that too leaving only `myObject`.
 
 You can explicitly set the target by adding a named argument `target`:
 
