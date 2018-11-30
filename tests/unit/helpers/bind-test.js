@@ -1,45 +1,44 @@
 import { bind } from 'ember-bind-helper/helpers/bind';
 import { module, test } from 'qunit';
 
-module('Unit | Helper | bind');
+module('Unit | Helper | bind', function() {
+  test('it works', function(assert) {
+    let context = {
+      prop: 'before'
+    };
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  let context = {
-    prop: 'before'
-  };
+    function fn(value) {
+      this.prop = value;
+    }
 
-  function fn(value) {
-    this.prop = value;
-  }
+    let result = bind([fn], { target: context });
+    result('after');
+    assert.equal(context.prop, 'after');
+  });
 
-  let result = bind([fn], { target: context });
-  result('after');
-  assert.equal(context.prop, 'after');
-});
+  test('it throws error if no argument is passed', function(assert) {
+    assert.throws(
+      function() {
+        bind([], { target: null });
+      },
+      /one argument/);
+  });
 
-test('it throws error if no argument is passed', function(assert) {
-  assert.throws(
-    function() {
-      bind([], { target: null });
-    },
-    /one argument/);
-});
+  test('if first argument is not a function, throw an error', function(assert) {
+    assert.throws(
+      function() {
+        bind(['not a function'], { target: null });
+      },
+      /function/);
+  });
 
-test('if first argument is not a function, throw an error', function(assert) {
-  assert.throws(
-    function() {
-      bind(['not a function'], { target: null });
-    },
-    /function/);
-});
+  test('if no second argument, it is bound to null', function(assert) {
+    assert.expect(1);
 
-test('if no second argument, it is bound to null', function(assert) {
-  assert.expect(1);
+    function fun() {
+      assert.ok(this === null);
+    }
 
-  function fun() {
-    assert.ok(this === null);
-  }
-
-  bind([fun], { target: null })();
+    bind([fun], { target: null })();
+  });
 });
