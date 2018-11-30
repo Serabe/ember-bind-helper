@@ -1,8 +1,7 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = {
-  name: 'ember-bind-helper',
+  name: require('./package').name,
 
   setupPreprocessorRegistry(type, registry) {
     registry.add("htmlbars-ast-plugin", {
