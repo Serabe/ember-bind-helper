@@ -6,7 +6,8 @@
 
 This addon provides a `bind` helper to bind a function to a context.
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
 `ember install ember-bind-helper`
 
@@ -63,3 +64,13 @@ You can explicitly set the target by adding a named argument `target`:
 ```
 
 `myMethod` will receive `1`, `2`, `3` and `"caramba"` as arguments.
+
+## Linting
+
+* `npm run lint:hbs`
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
