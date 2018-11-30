@@ -54,13 +54,11 @@ jobs:
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
-  - yarn global add phantomjs-prebuilt
-  - phantomjs --version
 
 install:
   - yarn install --no-lockfile
   - npm config set spin false
-  - npm install -g npm@4
+  - npm install -g npm@6
   - npm --version
 
 script:
