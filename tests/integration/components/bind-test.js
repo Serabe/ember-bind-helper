@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
 
-module('Integration | Helper | bind', function(hooks) {
+function setupBindTest(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
@@ -34,6 +34,10 @@ module('Integration | Helper | bind', function(hooks) {
       assert.strictEqual(actualContext, expectedContext);
     };
 
+    this.assertContextIsComponent = function(assert, msg='Expected the context to be a component') {
+      assert.equal(this.boundContext.constructor.name, 'MyComponent', msg);
+    }
+
     this.assertArguments = function(assert, expectedArguments, msg) {
       let actualArguments = get(testContext, 'boundArguments');
       if (!msg) {
@@ -42,6 +46,10 @@ module('Integration | Helper | bind', function(hooks) {
       assert.deepEqual(actualArguments, expectedArguments);
     }
   });
+}
+
+module('Integration | Helper | bind', function(hooks) {
+  setupBindTest(hooks);
 
   test('it changes the context of a function, function: method, context: implicit this', async function(assert) {
     await render(hbs`<button {{action (bind method)}}>Click</button>`);
@@ -158,5 +166,62 @@ module('Integration | Helper | bind', function(hooks) {
 
     this.assertContext(assert, get(this, 'model.submodel'));
     this.assertArguments(assert, ['adios', 1, get(this, 'model')]);
+  });
+});
+
+module("[GH#6] {{bind}} doesn't work with @arg objects", function (hooks) {
+  setupBindTest(hooks);
+
+  test('(bind @method)', async function (assert) {
+    await render(hbs`<BindMethod @method={{this.method}} />`);
+
+    await this.callAction();
+
+    this.assertContextIsComponent(assert);
+    this.assertArguments(assert, []);
+  });
+
+  test('(bind @method target=this)', async function (assert) {
+    await render(hbs`<BindMethodWithContextAsTarget @method={{this.method}} />`);
+
+    await this.callAction();
+
+    this.assertContextIsComponent(assert);
+    this.assertArguments(assert, []);
+  });
+
+  test('(bind @model.actions.method)', async function (assert) {
+    await render(hbs`<BindModelActions @model={{this.model}} />`);
+
+    await this.callAction();
+
+    this.assertContext(assert, get(this, 'model'));
+  });
+
+  test('(bind @method target=@model.submodel)', async function (assert) {
+    await render(hbs`<BindMethodWithTarget @method={{this.method}} @model={{this.model}} />`);
+
+    await this.callAction();
+
+    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertArguments(assert, []);
+  });
+
+  test('(bind @model.method)', async function (assert) {
+    await render(hbs`<BindModelMethod @model={{this.model}} />`);
+
+    await this.callAction();
+
+    this.assertContext(assert, get(this, 'model'));
+    this.assertArguments(assert, []);
+  });
+
+  test('(bind @model.submodel.method)', async function (assert) {
+    await render(hbs`<BindSubmodelModelMethod @model={{this.model}} />`);
+
+    await this.callAction();
+
+    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertArguments(assert, []);
   });
 });

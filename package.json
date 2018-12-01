@@ -42,13 +42,15 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^3.4.1",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~3.5.1",
+    "ember-source": "~2.16.0",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.0.0",
     "eslint-plugin-ember": "^5.2.0",
     "eslint-plugin-node": "^7.0.1",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.8.0"
+    "qunit-dom": "^0.8.0",
+    "sparkles-component": "^1.1.0",
+    "@ember/jquery": "^0.5.1"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"

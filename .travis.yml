@@ -15,13 +15,14 @@ cache:
   yarn: true
 
 env:
-  - EMBER_TRY_SCENARIO=ember-lts-2.4
-  - EMBER_TRY_SCENARIO=ember-lts-2.8
-  - EMBER_TRY_SCENARIO=ember-lts-2.12
+  - EMBER_TRY_SCENARIO=ember-lts-2.16
+  - EMBER_TRY_SCENARIO=ember-lts-2.18
+  - EMBER_TRY_SCENARIO=ember-lts-3.4
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
   - EMBER_TRY_SCENARIO=ember-default
+  - EMBER_TRY_SCENARIO=ember-default-with-jquery
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
@@ -49,18 +50,17 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-release
     - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
+    - env: EMBER_TRY_SCENARIO=ember-default
     - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
-  - yarn global add phantomjs-prebuilt
-  - phantomjs --version
 
 install:
   - yarn install --no-lockfile
   - npm config set spin false
-  - npm install -g npm@4
+  - npm install -g npm@6
   - npm --version
 
 script:
