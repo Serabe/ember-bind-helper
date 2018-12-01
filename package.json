@@ -1,6 +1,6 @@
 {
   "name": "ember-bind-helper",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Ember bind helper helps you bind functions in your templates.",
   "keywords": [
     "ember-addon"
