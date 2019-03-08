@@ -22,6 +22,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Update NPM
+          command: npm install -g npm
+      - run:
           name: NPM install
           command: npm ci
       - persist_to_workspace:
