@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: circleci/node:6-browsers
+    - image: circleci/node:latest-browsers
       environment:
         JOBS: 2
   working_directory: ~/repo
@@ -22,11 +22,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Update NPM
-          command: npm cache clean -- force && sudo npm install -g npm
-      - run:
           name: NPM install
-          command: npm cache clean --force && npm ci
+          command: npm ci
       - persist_to_workspace:
           root: .
           paths:
