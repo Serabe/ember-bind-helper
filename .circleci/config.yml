@@ -23,7 +23,7 @@ jobs:
           at: .
       - run:
           name: Update NPM
-          command: npm install -g npm
+          command: sudo npm install -g npm
       - run:
           name: NPM install
           command: npm ci
