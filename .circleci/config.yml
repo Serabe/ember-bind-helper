@@ -26,7 +26,7 @@ jobs:
           command: sudo npm install -g npm
       - run:
           name: NPM install
-          command: npm ci
+          command: npm cache clean && npm ci
       - persist_to_workspace:
           root: .
           paths:
