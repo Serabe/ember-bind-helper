@@ -9,7 +9,9 @@ This addon provides a `bind` helper to bind a function to a context.
 
 ## Installation
 
-`ember install ember-bind-helper`
+If you are running Ember 3.4+, just `ember install ember-bind-helper`.
+
+If you are running a **version older than 3.4**, do `ember install ember-bind-helper@0.3.2` instead.
 
 ## Using `bind`
 
