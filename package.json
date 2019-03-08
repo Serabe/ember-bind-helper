@@ -1,13 +1,13 @@
 {
   "name": "ember-bind-helper",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Ember bind helper helps you bind functions in your templates.",
   "keywords": [
     "ember-addon"
   ],
   "repository": "Serabe/ember-bind-helper",
   "license": "MIT",
-  "author": "",
+  "author": "Sergio Arbeo <serabe@gmail.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
