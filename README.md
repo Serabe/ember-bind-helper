@@ -1,3 +1,15 @@
+# DEPRECATED
+
+Given https://github.com/emberjs/rfcs/pull/470 is out there, this addon is being deprecated. Please, do not start using it.
+If you wish to use something similar to what the RFC proposes, install 3.0.0-alpha.1. If you are already using this addon,
+keep reading.
+
+## Deprecation path.
+
+There are already alphas for v2 and v3. v2 is compatible with v1.0, but will display some warnings and help you migrate to
+the new soon-to-be-standard `bind` helper. New alphas might come out as the RFC evolves. v3, OTOH, will work as a polyfill
+until `bind` lands in an Ember version you, my dear user, use.
+
 # Ember Bind Helper
 
 [![CircleCI](https://circleci.com/gh/Serabe/ember-bind-helper/tree/master.svg?style=svg)](https://circleci.com/gh/Serabe/ember-bind-helper/tree/master)
