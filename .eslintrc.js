@@ -22,7 +22,6 @@ module.exports = {
         "testem.js",
         "blueprints/*/index.js",
         "config/**/*.js",
-        "lib/bind-transform.js",
         "tests/dummy/config/**/*.js"
       ],
       excludedFiles: [

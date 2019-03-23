@@ -1,6 +1,6 @@
 import { helper } from "@ember/component/helper";
 
-export function bind([f, ...params], { context }) {
+export function bind([f, ...params], { context=null }) {
   if (!f || typeof f !== "function") {
     throw "bind needs to receive at least one argument, a function";
   }

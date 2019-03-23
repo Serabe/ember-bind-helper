@@ -56,12 +56,12 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, this);
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 
   test('it changes the context of a function, function: method, context: this', async function(assert) {
-    await render(hbs`<button {{action (bind method target=this)}}>Click</button>`);
+    await render(hbs`<button {{action (bind method context=this)}}>Click</button>`);
 
     await this.callAction();
 
@@ -70,7 +70,7 @@ module('Integration | Helper | bind', function(hooks) {
   });
 
   test('it changes the context of a function, function: method, context: model.submodel', async function(assert) {
-    await render(hbs`<button {{action (bind method target=model.submodel)}}>Click</button>`);
+    await render(hbs`<button {{action (bind method context=model.submodel)}}>Click</button>`);
 
     await this.callAction();
 
@@ -83,12 +83,12 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 
   test('it changes the context of a function, function: model.method, context: model', async function(assert) {
-    await render(hbs`<button {{action (bind model.method target=model)}}>Click</button>`);
+    await render(hbs`<button {{action (bind model.method context=model)}}>Click</button>`);
 
     await this.callAction();
 
@@ -97,7 +97,7 @@ module('Integration | Helper | bind', function(hooks) {
   });
 
   test('it changes the context of a function, function: model.method, context: model.submodel.', async function(assert) {
-    await render(hbs`<button {{action (bind model.method target=model.submodel)}}>Click</button>`);
+    await render(hbs`<button {{action (bind model.method context=model.submodel)}}>Click</button>`);
 
     await this.callAction();
 
@@ -110,12 +110,12 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 
   test('it changes the context of a function, function: model.submodel.method, context: model.submodel.', async function(assert) {
-    await render(hbs`<button {{action (bind model.submodel.method target=model.submodel)}}>Click</button>`);
+    await render(hbs`<button {{action (bind model.submodel.method context=model.submodel)}}>Click</button>`);
 
     await this.callAction();
 
@@ -128,7 +128,7 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, [1]);
   });
 
@@ -137,7 +137,7 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, this);
+    this.assertContext(assert, null);
     this.assertArguments(assert, [1]);
   });
 
@@ -146,12 +146,12 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, ['adios']);
   });
 
-  test('it passes the extra argument to bind and keeps explicit target', async function(assert) {
-    await render(hbs`<button {{action (bind model.submodel.method "adios" target=model)}}>Click</button>`);
+  test('it passes the extra argument to bind and keeps explicit context', async function(assert) {
+    await render(hbs`<button {{action (bind model.submodel.method "adios" context=model)}}>Click</button>`);
 
     await this.callAction();
 
@@ -164,7 +164,7 @@ module('Integration | Helper | bind', function(hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, ['adios', 1, get(this, 'model')]);
   });
 });
@@ -177,11 +177,11 @@ module("[GH#6] {{bind}} doesn't work with @arg objects", function (hooks) {
 
     await this.callAction();
 
-    this.assertContextIsComponent(assert);
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 
-  test('(bind @method target=this)', async function (assert) {
+  test('(bind @method context=this)', async function (assert) {
     await render(hbs`<BindMethodWithContextAsTarget @method={{this.method}} />`);
 
     await this.callAction();
@@ -195,10 +195,10 @@ module("[GH#6] {{bind}} doesn't work with @arg objects", function (hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model'));
+    this.assertContext(assert, null);
   });
 
-  test('(bind @method target=@model.submodel)', async function (assert) {
+  test('(bind @method context=@model.submodel)', async function (assert) {
     await render(hbs`<BindMethodWithTarget @method={{this.method}} @model={{this.model}} />`);
 
     await this.callAction();
@@ -212,7 +212,7 @@ module("[GH#6] {{bind}} doesn't work with @arg objects", function (hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 
@@ -221,7 +221,7 @@ module("[GH#6] {{bind}} doesn't work with @arg objects", function (hooks) {
 
     await this.callAction();
 
-    this.assertContext(assert, get(this, 'model.submodel'));
+    this.assertContext(assert, null);
     this.assertArguments(assert, []);
   });
 });
