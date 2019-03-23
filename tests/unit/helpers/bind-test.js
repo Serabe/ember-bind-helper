@@ -11,7 +11,7 @@ module('Unit | Helper | bind', function() {
       this.prop = value;
     }
 
-    let result = bind([fn], { target: context });
+    let result = bind([fn], { context });
     result('after');
     assert.equal(context.prop, 'after');
   });
@@ -19,7 +19,7 @@ module('Unit | Helper | bind', function() {
   test('it throws error if no argument is passed', function(assert) {
     assert.throws(
       function() {
-        bind([], { target: null });
+        bind([], { context: null });
       },
       /one argument/);
   });
@@ -27,7 +27,7 @@ module('Unit | Helper | bind', function() {
   test('if first argument is not a function, throw an error', function(assert) {
     assert.throws(
       function() {
-        bind(['not a function'], { target: null });
+        bind(['not a function'], { context: null });
       },
       /function/);
   });
@@ -39,6 +39,6 @@ module('Unit | Helper | bind', function() {
       assert.ok(this === null);
     }
 
-    bind([fun], { target: null })();
+    bind([fun], { context: null })();
   });
 });
