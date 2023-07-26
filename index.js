@@ -6,10 +6,7 @@ module.exports = {
   setupPreprocessorRegistry(type, registry) {
     registry.add("htmlbars-ast-plugin", {
       name: "bind",
-      plugin: require("./lib/bind-transform"),
-      baseDir() {
-        return __dirname;
-      }
+      plugin: "ember-bind-helper/lib/bind-transform",
     });
   }
 };
